@@ -35,5 +35,9 @@ export function getDecryptedValue(data: string) {
 }
 
 export async function openUrl(path: string) {
-    return browser.url(process.env.URL + path);
+    const baseUrl = process.env.URL;
+    if (!baseUrl) {
+        throw new Error('URL environment variable is not defined. Please set it in your environment or GitHub secrets.');
+    }
+    return browser.url(baseUrl + path);
 }
